@@ -1,6 +1,6 @@
 % First create a grid space which allows numbers from 1 to 16
 % in a sudoku grid of size 16
-1{ sudoku(X, Y, N): X=1..16, Y=1..16, X>=X1, X<=X1+3, Y>=Y1, Y<=Y1+3 }1 :- N=1..16, X1=4*(0..3)+1, Y1=4*(0..3)+1.
+{ sudoku(X, Y, N): X=1..16, Y=1..16, X>=X1, X<=X1+3, Y>=Y1, Y<=Y1+3 }=1 :- N=1..16, X1=4*(0..3)+1, Y1=4*(0..3)+1.
 
 % Secondly, no 2 numbers are different in the same row and column
 :- sudoku(X, Y, N), sudoku(X, Y, N1), N!=N1.
