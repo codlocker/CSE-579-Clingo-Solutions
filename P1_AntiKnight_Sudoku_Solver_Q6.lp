@@ -12,7 +12,7 @@
 :- sudoku(X, Y, N), sudoku(X1, Y, N), X!=X1.
 
 % Fifthly look for knight movements having same number and add as constraint
-:- sudoku(X, Y, N), sudoku(X1, Y1, N1), |X - X1| + |Y - Y1| == 3.
+:- sudoku(X, Y, N), sudoku(X1, Y1, N), |X - X1| + |Y - Y1| == 3.
 
 % BOX 1
 sudoku(1, 2, 8).
@@ -31,7 +31,7 @@ sudoku(3, 6, 6).
 
 % Box 5
 sudoku(4, 4, 4).
-sudoku(7, 7, 9).
+sudoku(6, 6, 9).
 
 % box 6
 sudoku(7, 4, 8).
