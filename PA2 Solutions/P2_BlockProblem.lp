@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%
 % File: blocks.lp: Blocks World
 %%%%%%%%%%%%%%%%%%%
-#const istop = "SAT".
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % sort and object declaration
@@ -46,6 +45,10 @@ on(B,L,T+1) :- move(B,L,T).
 % commonsense law of inertia
 {on(B,L,T+1)} :- on(B,L,T), T < x.
 
-% serializability constraint to allow for multiple movements.
-:- move(BB,LL,T), on(A,LL,T), move(A,B,T), block(A), T=1..x-1.
+% two same blocks cannot be top of one another
+below(X,Y,T) :- on(Y,X,T).
+below(X,Z,T) :- below(X,Y,T), below(Y,Z,T).
+:- on(X,X,T).
+:- on(X,Y,T), below(X,Y,T).
+
 #show move/3.
