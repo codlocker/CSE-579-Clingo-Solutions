@@ -14,7 +14,7 @@ location(table).
 % state description
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % two blocks can't be on the same block at the same time
-:- 2{on(BB,B,T)}, block(B), T = 0..m.
+:- 2{on(BB,B,T)}, block(B), T = 0..x.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % effect and preconditions of action
@@ -23,7 +23,7 @@ location(table).
 on(B,L,T+1) :- move(B,L,T).
 
 % concurrent actions are limited by num of grippers
-:- not {move(BB,LL,T)} grippers, T = 0..m-1.
+:- not {move(BB,LL,T)} grippers, T = 0..x-1.
 
 % a block can be moved only when it is clear
 :- move(B,L,T), on(B1,B,T).
@@ -37,15 +37,18 @@ on(B,L,T+1) :- move(B,L,T).
 1{on(B,LL,0):location(LL)}1 :- block(B).
 
 % uniqueness and existence of value constraints
-:- not 1{on(B,LL,T)}1, block(B), T=1..m.
+:- not 1{on(B,LL,T)}1, block(B), T=1..x.
 
 % actions are exogenous
-{move(B,L,T)} :- block(B), location(L), T = 0..m-1.
+{move(B,L,T)} :- block(B), location(L), T = 0..x-1.
 
 % commonsense law of inertia
-{on(B,L,T+1)} :- on(B,L,T), T < m.
+{on(B,L,T+1)} :- on(B,L,T), T < x.
+
+% serializability constraint
+:- move(BB,LL,T), on(X,LL,T), move(X,B,T), block(X), T=1..x-1.
 
 % minimize the number of actions
-#minimize(1, B, L, T : move(B, L, T)).
+#minimize{1, B, L, T : move(B, L, T)}.
 
 #show move/3.
